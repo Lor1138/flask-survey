@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Survey Start{% endblock %}
+{% block head %}
+    {{ super() }}
+{% endblock %}
+{% block content %}
+    <h1>Satisfaction Survey</h1>
+    <h4 class="important">
+      Thank you for taking our survey! Your opinion matters to us!
+    </h4>
+
+    <p>
+        To complete the survey, please answer the questions and then move on
+        to the next question. You cannot move to the next question without answering
+        all previous questions.
+    </p>
+
+    <button type="submit" id="start-survey"> Start Survey </button>
+{% endblock %}
