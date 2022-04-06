@@ -26,6 +26,21 @@ def survey_start():
     return redirect("question/0")
 
 @app.route("/question/<int:question_id>")
-def question_page():
+def question_page(question_id):
+
+    """if they are trying to access the question page too soon, redirect to start page"""
     
-    return render_template("question.html")
+    """If they have answered all the questions, redirect to thank you page"""
+
+    """if they try to navigate to a new page without answering the current question, 
+    flash message and redirect to correct page"""
+
+    
+
+    question = surveys.questions[question_id]
+    print(question)
+    return render_template("question.html", question_num=question_id, question=question)
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
