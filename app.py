@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect, flash
+from flask import Flask, request, render_template, redirect, flash, url_for
 from flask_debugtoolbar import DebugToolbarExtension
 from surveys import satisfaction_survey as surveys
 
@@ -29,16 +29,20 @@ def survey_start():
 def question_page(question_id):
 
     """if they are trying to access the question page too soon, redirect to start page"""
+
     
     """If they have answered all the questions, redirect to thank you page"""
 
     """if they try to navigate to a new page without answering the current question, 
     flash message and redirect to correct page"""
 
+    """
+    utilize url_for somehow?
+    """
+
     
 
     question = surveys.questions[question_id]
-    print(question)
     return render_template("question.html", question_num=question_id, question=question)
 
 
