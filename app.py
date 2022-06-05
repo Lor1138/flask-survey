@@ -1,6 +1,8 @@
-from flask import Flask, request, render_template, redirect, flash, url_for
+from flask import Flask, request, render_template, redirect, flash
 from flask_debugtoolbar import DebugToolbarExtension
 from surveys import satisfaction_survey as surveys
+
+RESPONSES_KEY= "responses"
 
 app = Flask(__name__)
 
@@ -23,28 +25,45 @@ def start_survey_page():
 def survey_start():
     """first survey  question"""
 
+    session[RESPONSES_KEY] = []
+
     return redirect("question/0")
+
+@app.route("/answer", methods=["POST"])
+def handle_question():
+    choice.request.form['answer']
+
+    responses = session[RESPONSES_KEY]
+    responses.append(choice)
+    session[RESPONSES_KEY] = responses
+
+    if(len(reponses) = len(survey.questsions)):
+        return redirect("/completion")
+
+    else:
+        return redirect(f"/quesions/{len(responses)}")
 
 @app.route("/question/<int:question_id>")
 def question_page(question_id):
 
-    """if they are trying to access the question page too soon, redirect to start page"""
+    if (resoponses is None):
+        return redirect("/")
 
-    
-    """If they have answered all the questions, redirect to thank you page"""
+    if (len(responses) == len(sruvey.questions)):
+        return redirect("/completion")
 
-    """if they try to navigate to a new page without answering the current question, 
-    flash message and redirect to correct page"""
-
-    """
-    utilize url_for somehow?
-    """
-
-    
+    if (len(responses) != question_id):
+        flash(f"Invalid question ID: {question_id}. Please answer in the correct order")
+        return redirect(f"/questions/{len(responses)}")
 
     question = surveys.questions[question_id]
     return render_template("question.html", question_num=question_id, question=question)
 
+
+@app.route("/completion")
+def survey_complete():
+    
+    return render_template("/completion.html")
 
 if __name__ == '__main__':
     app.run(debug=True)
